@@ -1,0 +1,23 @@
+flowchart TD
+    user[Human user or presenter] --> ui[CLI runner or Streamlit web app]
+    ui --> profile[User profile input]
+    data[(songs.csv catalog)] --> loader[load_songs]
+    profile --> recommender[Recommender and scoring logic]
+    loader --> recommender
+    recommender --> recs[Ranked recommendations with explanations]
+    recommender --> evaluator[Evaluation metrics]
+    profile --> evaluator
+    loader --> evaluator
+    evaluator --> report[Metrics report and top-song summaries]
+    ui --> tester[Pytest test runner]
+    tester --> checks[Test results]
+    recs --> humancheck[Human reviews recommendations]
+    report --> humancheck
+    checks --> humancheck
+
+    classDef human fill:#f8f1d3,stroke:#7a5c00,color:#2f2400;
+    classDef system fill:#d9ecff,stroke:#1d5c99,color:#0b2540;
+    classDef data fill:#dff3e4,stroke:#2d6a4f,color:#183a2d;
+    class user,humancheck human;
+    class ui,profile,loader,recommender,evaluator,recs,report,tester,checks system;
+    class data data;
