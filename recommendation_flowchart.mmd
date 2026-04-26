@@ -1,0 +1,18 @@
+flowchart TD
+    A[Load songs.csv] --> B[Read one song row]
+    B --> C[Start score at 0]
+    C --> D{Genre matches favorite_genre?}
+    D -- Yes --> E[Add 2.0 points]
+    D -- No --> F[Add 0 points]
+    E --> G{Mood matches favorite_mood?}
+    F --> G
+    G -- Yes --> H[Add 1.0 point]
+    G -- No --> I[Add 0 points]
+    H --> J[Compare energy, tempo_bpm, valence, danceability, acousticness to user profile]
+    I --> J
+    J --> K[Add similarity points based on closeness]
+    K --> L[Save final score for this song]
+    L --> M{More songs left?}
+    M -- Yes --> B
+    M -- No --> N[Sort all songs by score]
+    N --> O[Return ranked list / top 3 recommendations]
