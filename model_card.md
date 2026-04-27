@@ -3,30 +3,28 @@
 ## Model Name
 VibeFinder 1.0
 
-## Goal / Task
-This recommender suggests songs that match one user's taste profile. It tries to rank songs by how close they are to the user's preferred genre, mood, and audio features.
+---
 
-## Data Used
-The catalog has 18 songs from `data/songs.csv`. Each song includes genre, mood, energy, tempo, valence, danceability, and acousticness. I expanded the starter data to include more genres and moods, but the dataset is still small. That means some styles have very few examples, so recommendations can repeat.
+## Required Reflection Questions
 
-## Algorithm Summary
-Each song starts at score 0. The system adds points for genre and mood matches, then adds similarity points for numeric features like energy and tempo. Songs that are closer to the user's target values get more points. After scoring all songs, the model sorts them from highest to lowest and returns the top results with reasons.
+**1. What are the limitations or biases in your system?**
 
-## Observed Behavior / Biases
-I found an energy-based filter bubble during testing. After increasing energy weight, high-energy songs appeared near the top for many different profiles, even when genre intent was different. This can make songs like Gym Hero show up too often. The small catalog makes this worse because there are not enough alternatives for some user types.
+The biggest limitation is catalog coverage. With only 18 songs, some genres and moods are missing, so recommendations can look repetitive or forced. The strongest bias is toward high-energy tracks because the current scoring weights give energy a large influence; this can create a filter-bubble effect where songs like Gym Hero appear too often.
 
-## Evaluation Process
-I tested five profiles: High-Energy Pop, Chill Lofi, Deep Intense Rock, Conflict: High Energy + Sad, and Conflict: Acoustic Techno. I compared whether the top 5 songs felt reasonable for each profile. Chill Lofi looked accurate, but adversarial profiles showed surprises. I also ran a logic experiment by halving genre weight and doubling energy weight, then checked how rankings changed.
+**2. Could your AI be misused, and how would you prevent that?**
 
-## Intended Use and Non-Intended Use
-Intended use: classroom exploration of how recommender systems score and rank items. It is useful for learning, debugging, and discussing bias.
+This system could be misused to make overconfident claims about user preference quality, even though it is a classroom-scale prototype. To prevent misuse, I would:
+- Keep explicit scope warnings in the UI and README
+- Require explanation output with every recommendation
+- Show evaluation metrics by default
+- Block any claim that the system is production-ready or suitable for high-stakes personalization
 
-Non-intended use: real music product decisions, high-stakes personalization, or any case where fairness and broad user coverage are required. The dataset is too small and the scoring rules are too simple for production use.
+**3. What surprised you while testing your AI's reliability?**
 
-## Ideas for Improvement
-1. Add more songs with better balance across genres, moods, and energy levels.
-2. Add a diversity rule so the top 5 are not all the same vibe.
-3. Learn profile weights per user instead of using one fixed weighting scheme.
+I was surprised that reliability and quality are different. The system was perfectly consistent (top-5 consistency = 1.00 across runs), but still produced weak results on adversarial profiles where catalog coverage was missing. That showed me a model can be stable and still be wrong for some user intents.
 
-## Personal Reflection
-My biggest learning moment was seeing how a small weight change created a big ranking change. When I doubled energy weight, the system started pushing energetic songs for many profiles, even when genre intent was different. AI tools helped me move faster by generating profile ideas, drafting tests, and suggesting edits, but I had to double-check outputs by running the program and reading the score reasons line by line. I was surprised that a simple scoring formula can still feel like a real recommender when it gives ranked results with explanations. If I extend this project, I want to add more songs, tune weights with feedback, and add a diversity rule so users do not keep seeing the same few tracks.
+**4. Describe your collaboration with AI during this project. Identify one helpful suggestion and one flawed suggestion.**
+
+Helpful suggestion: AI proposed adversarial profiles like Conflict: High Energy + Sad and Acoustic Techno, which exposed weaknesses that normal tests missed.
+
+Flawed suggestion: AI-generated draft output initially included made-up recommendation examples that looked plausible but did not match live runs. I corrected this by replacing them with measured outputs from `python -m src.main` and pytest logs.
