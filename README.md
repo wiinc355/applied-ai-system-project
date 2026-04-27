@@ -108,6 +108,7 @@ User profile + `songs.csv` → Recommender scores each song → Ranked list with
 ## Video Walkthrough
 
 Video gif [/walkthrough.gif](walkthrough.gif)
+https://github.com/wiinc355/applied-ai-system-project/blob/main/walkthrough.gif
 
 System diagram image: [assets/system_diagram.png](assets/system_diagram.png)
 
