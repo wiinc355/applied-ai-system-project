@@ -61,7 +61,7 @@ See the full rendered diagram: [assets/system_diagram.svg](assets/system_diagram
 **Data flow (short form):**
 User profile + `songs.csv` → Recommender scores each song → Ranked list with explanations → Evaluator computes metrics → Human reviews output → Tests verify behavior
 
----
+-------
 
 ## Setup Instructions
 
