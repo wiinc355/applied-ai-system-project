@@ -45,6 +45,8 @@ flowchart TD
 
 See the full rendered diagram: [assets/system_diagram.svg](assets/system_diagram.svg) | [assets/system_diagram.png](assets/system_diagram.png)
 
+![System Architecture Diagram](assets/system_diagram.png)
+
 ### Component Roles
 
 | Component | File | Role |
@@ -107,7 +109,9 @@ User profile + `songs.csv` → Recommender scores each song → Ranked list with
 
 Video gif [/walkthrough.gif](https://github.com/wiinc355/applied-ai-system-project.git)
 
-/accests/System_diagram.png
+System diagram image: [assets/system_diagram.png](assets/system_diagram.png)
+
+![CLI Output Screenshot](assets/cli-output-screenshot.png)
 
 
 
@@ -144,6 +148,8 @@ Evaluation metrics (measured):
 
 **What this proves:** The system is deterministic (consistency = 1.00) and returns low-energy, acoustic songs as expected. Mood alignment of 0.60 means 3 of the 5 songs matched the "chill" mood label exactly — honest, not inflated.
 
+![Chill Lofi Stress Test](assets/stress-chill-lofi.png)
+
 ---
 
 ### Example 2 — Adversarial profile: Conflict: Acoustic Techno
@@ -175,6 +181,8 @@ Evaluation metrics (measured):
 
 **What this proves:** The system does not crash on impossible inputs. Mood alignment = 0.00 is the honest result — no techno songs exist in the catalog, so the recommender can only return numerically close songs. This is a documented, measurable limitation, not a hidden failure.
 
+![Conflict: Acoustic Techno Stress Test](assets/stress-conflict-acoustic-techno.png)
+
 ---
 
 ### Example 3 — High-Energy Pop profile
@@ -205,6 +213,8 @@ Evaluation metrics (measured):
 ```
 
 **What this proves:** Feature-distance of 0.07 (near-zero) confirms the top songs are genuinely close to the requested audio profile, not just lucky genre matches. Mood alignment of 0.40 reflects that only 2 of 5 catalog songs labeled "happy" ranked in the top 5 — accurate given the 18-song catalog size.
+
+![High-Energy Pop Stress Test](assets/stress-high-energy-pop.png)
 
 ---
 
@@ -289,6 +299,10 @@ All five profiles were run with `python -m src.main`. Results measured across 5 
 All five profile outputs were reviewed manually after each run. Standard profiles (Chill Lofi, High-Energy Pop, Deep Intense Rock) returned results that felt intuitive and matched the requested vibe. Adversarial profiles exposed two documented weaknesses:
 - **Mood mismatch:** Conflict: High Energy + Sad returned zero mood-aligned songs because the scoring formula treats energy as a stronger signal than mood.
 - **Genre miss:** Conflict: Acoustic Techno returned no techno songs at all — the catalog simply has none, and the system fell back to nearest-numeric-neighbor behavior.
+
+![Deep Intense Rock Stress Test](assets/stress-deep-intense-rock.png)
+
+![Conflict: High Energy + Sad Stress Test](assets/stress-conflict-high-energy-sad.png)
 
 
 
